@@ -16,7 +16,7 @@ function App() {
         setUser(response.data.username);
       })
       .catch(error => {
-        window.location.href = '/login';
+        
       });
   }, []);
   //if user is not logged in, redirect to login page
