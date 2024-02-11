@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start ",
-    "build": "echo $(ls) && node node_modules/.bin/react-scripts build",
+    "build": "echo $(ls /opt/render/project/src/frontend/node_modules) && node node_modules/.bin/react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
