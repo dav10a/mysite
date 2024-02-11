@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from 'react';
+import HelloWorld from './HelloWorld';
+import Login from './Login';
+import axios from 'axios';
+//get user from http://192.168.0.19:8000/getuser, if not logged in, redirect to login page
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [user, setUser] = useState('');
 
+  useEffect(() => {
+    axios.get('http://192.168.0.19:8000/getuser', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then(response => {
+        setUser(response.data.username);
+      })
+      .catch(error => {
+        
+      });
+  }, []);
+  //if user is not logged in, redirect to login page
+  if (!user) {
+    return (
+      <Login />
+    );
+  }
+  return (
+    <HelloWorld />
+  );
+
+
+}
 export default App;
